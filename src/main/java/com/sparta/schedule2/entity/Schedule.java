@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +27,9 @@ public class Schedule extends Timestamped{
     private String title;
     @Column(name="content", nullable=false, length=500)
     private String content;
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
 
 
     public Schedule(ScheduleCreateRequestDto requestDto) {

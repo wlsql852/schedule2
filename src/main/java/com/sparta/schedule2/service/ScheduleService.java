@@ -18,10 +18,7 @@ public class ScheduleService {
     public ScheduleResponseDto cteateSchedule(ScheduleCreateRequestDto requestDto) {
         Schedule schedule = new Schedule(requestDto);
         Schedule saveSchedule = scheduleRepository.save(schedule);
-        System.out.println(saveSchedule.getUsername());
         ScheduleResponseDto responseDto = new ScheduleResponseDto(saveSchedule);
-        System.out.println(saveSchedule.getId());
-        System.out.println(responseDto.getContent());
         return responseDto;
     }
 
