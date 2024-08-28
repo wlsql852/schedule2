@@ -47,4 +47,8 @@ public class ScheduleService {
         Page<Schedule> schedules = scheduleRepository.findALlByOrderByModifiedAtDesc(pageable);
         return schedules.map(schedule -> new ScheduleResponseDto(schedule));
     }
+
+    public void deleteSchedule(Long scheduleId) {
+        scheduleRepository.deleteById(scheduleId);
+    }
 }
