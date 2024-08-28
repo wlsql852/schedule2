@@ -13,6 +13,7 @@ public class ScheduleResponseDto {
     private String username;
     private String title;
     private String content;
+    private int messageCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -21,6 +22,7 @@ public class ScheduleResponseDto {
         this.username = schedule.getUsername();
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
+        this.messageCount = schedule.getMessages().size();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
