@@ -2,7 +2,6 @@ package com.sparta.schedule2.dto;
 
 import com.sparta.schedule2.entity.Manage;
 import com.sparta.schedule2.entity.Schedule;
-import com.sparta.schedule2.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +28,7 @@ public class ScheduleDetailResponseDto {
         this.messageCount = schedule.getMessages().size();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
-        this.managers = managers.stream().map(manage -> manage.getManager()).map(manager-> new UserResponseDto(manager)).toList();
+        this.managers = managers.stream().map(Manage::getManager).map(UserResponseDto::new).toList();
     }
 
 

@@ -6,7 +6,6 @@ import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,28 +19,24 @@ public class UserService {
     public UserResponseDto createUser(UserRequestDto requestDto) {
         User user = new User(requestDto);
         User saveUser = userRepository.save(user);
-        UserResponseDto responseDto = new UserResponseDto(saveUser);
-        return responseDto;
+        return new UserResponseDto(saveUser);
     }
 
     public UserResponseDto getUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(NullPointerException::new);
-        UserResponseDto responseDto = new UserResponseDto(user);
-        return responseDto;
+        return new UserResponseDto(user);
     }
 
     public List<UserResponseDto> getUsers() {
         List<User> users = userRepository.findAll();
-        List<UserResponseDto> responseDtos = users.stream().map(user -> new UserResponseDto(user)).toList();
-        return responseDtos;
+        return users.stream().map(UserResponseDto::new).toList();
     }
 
     public UserResponseDto updateUser(Long userId, UserRequestDto requestDto) {
         User user = userRepository.findById(userId).orElseThrow(NullPointerException::new);
         User saveUser = user.update(requestDto);
         userRepository.save(saveUser);
-        UserResponseDto responseDto = new UserResponseDto(saveUser);
-        return responseDto;
+        return new UserResponseDto(saveUser);
     }
 
     public void deleteUser(Long userId) {

@@ -30,28 +30,24 @@ public class MessageService {
         User user = userRepository.findById(requestDto.getUserId()).orElseThrow(NullPointerException::new);
         Message message = new Message(requestDto, schedule, user);
         Message saveMessage = messageRepository.save(message);
-        MessageResponseDto responseDto = new MessageResponseDto(saveMessage);
-        return responseDto;
+        return new MessageResponseDto(saveMessage);
     }
 
     public MessageResponseDto getMessage(Long messageId) {
         Message message = messageRepository.findById(messageId).orElseThrow(NullPointerException::new);
-        MessageResponseDto responseDto = new MessageResponseDto(message);
-        return responseDto;
+        return new MessageResponseDto(message);
     }
 
     public List<MessageResponseDto> getMessages(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
-        List<MessageResponseDto> messages= schedule.getMessages().stream().map(m->new MessageResponseDto(m)).toList();
-        return messages;
+        return schedule.getMessages().stream().map(MessageResponseDto::new).toList();
     }
 
     public MessageResponseDto updateMessage(Long messageId, MessageUpdateReqeustDto requestDto) {
         Message message = messageRepository.findById(messageId).orElseThrow(NullPointerException::new);
         Message saveMessage = message.update(requestDto);
         messageRepository.save(saveMessage);
-        MessageResponseDto responseDto = new MessageResponseDto(saveMessage);
-        return responseDto;
+        return new MessageResponseDto(saveMessage);
     }
 
     public void deleteMessage(Long messageId) {

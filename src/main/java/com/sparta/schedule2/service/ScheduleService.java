@@ -41,14 +41,12 @@ public class ScheduleService {
             manageList.add(manage);
         }
         List<Manage> manages = manageRepository.saveAll(manageList);
-        ScheduleDetailResponseDto responseDto = new ScheduleDetailResponseDto(saveSchedule,manages);
-        return responseDto;
+        return new ScheduleDetailResponseDto(saveSchedule,manages);
     }
 
     public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
-        ScheduleDetailResponseDto responseDto = new ScheduleDetailResponseDto(schedule);
-        return responseDto;
+        return new ScheduleDetailResponseDto(schedule);
     }
 
     public ScheduleDetailResponseDto updateSchedule(Long scheduleId, ScheduleUpdateRequestDto requestDto) {
@@ -70,7 +68,7 @@ public class ScheduleService {
     public Page<ScheduleResponseDto> getSchedules(int page, int size) {
         Pageable pageable = PageRequest.of(page-1, size);
         Page<Schedule> schedules = scheduleRepository.findALlByOrderByModifiedAtDesc(pageable);
-        return schedules.map(schedule -> new ScheduleResponseDto(schedule));
+        return schedules.map(ScheduleResponseDto::new);
     }
 
     public void deleteSchedule(Long scheduleId) {
