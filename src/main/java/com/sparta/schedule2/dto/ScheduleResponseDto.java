@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ScheduleResponseDto {
     private Long id;
-    private String username;
+    private UserResponseDto createdBy;
     private String title;
     private String content;
     private int messageCount;
@@ -19,11 +19,13 @@ public class ScheduleResponseDto {
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
-        this.username = schedule.getUsername();
+        this.createdBy = new UserResponseDto(schedule.getCreatedBy());
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
         this.messageCount = schedule.getMessages().size();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
+
+
 }

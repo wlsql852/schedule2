@@ -1,44 +1,69 @@
 package com.sparta.schedule2.service;
 
 import com.sparta.schedule2.dto.ScheduleCreateRequestDto;
+import com.sparta.schedule2.dto.ScheduleDetailResponseDto;
 import com.sparta.schedule2.dto.ScheduleResponseDto;
 import com.sparta.schedule2.dto.ScheduleUpdateRequestDto;
+import com.sparta.schedule2.entity.Manage;
 import com.sparta.schedule2.entity.Schedule;
+import com.sparta.schedule2.entity.User;
+import com.sparta.schedule2.repository.ManageRepository;
 import com.sparta.schedule2.repository.ScheduleRepository;
+import com.sparta.schedule2.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
+    private final ManageRepository manageRepository;
 
-    public ScheduleService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository, UserRepository userRepository, ManageRepository manageRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
+        this.manageRepository = manageRepository;
     }
 
-    public ScheduleResponseDto cteateSchedule(ScheduleCreateRequestDto requestDto) {
-        Schedule schedule = new Schedule(requestDto);
+    public ScheduleDetailResponseDto cteateSchedule(ScheduleCreateRequestDto requestDto) {
+        User user = userRepository.findById(requestDto.getCreatedBy()).orElseThrow(NullPointerException::new);
+        Schedule schedule = new Schedule(requestDto, user);
         Schedule saveSchedule = scheduleRepository.save(schedule);
-        ScheduleResponseDto responseDto = new ScheduleResponseDto(saveSchedule);
+        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(NullPointerException::new)).toList();
+        List<Manage> manageList = new ArrayList<>();
+        for(User manager : managers) {
+            Manage manage = new Manage(schedule,manager);
+            manageList.add(manage);
+        }
+        List<Manage> manages = manageRepository.saveAll(manageList);
+        ScheduleDetailResponseDto responseDto = new ScheduleDetailResponseDto(saveSchedule,manages);
         return responseDto;
     }
 
-    public ScheduleResponseDto getSchedule(Long scheduleId) {
+    public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
-        ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+        ScheduleDetailResponseDto responseDto = new ScheduleDetailResponseDto(schedule);
         return responseDto;
     }
 
-    public ScheduleResponseDto updateSchedule(Long scheduleId, ScheduleUpdateRequestDto requestDto) {
+    public ScheduleDetailResponseDto updateSchedule(Long scheduleId, ScheduleUpdateRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
         Schedule saveSchedule = schedule.update(requestDto);
         scheduleRepository.save(saveSchedule);
-        return new ScheduleResponseDto(saveSchedule);
-
+        manageRepository.deleteAll(manageRepository.findAllByScheduleId(schedule.getId()));
+        List<Manage> manageList = new ArrayList<>();
+        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(NullPointerException::new)).toList();
+        for(User manager : managers) {
+            Manage manage = new Manage(schedule,manager);
+            manageList.add(manage);
+        }
+        List<Manage> saveManage = manageRepository.saveAll(manageList);
+        return new ScheduleDetailResponseDto(saveSchedule, saveManage);
     }
 
 

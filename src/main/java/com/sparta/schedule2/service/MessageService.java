@@ -5,8 +5,10 @@ import com.sparta.schedule2.dto.MessageResponseDto;
 import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
 import com.sparta.schedule2.entity.Message;
 import com.sparta.schedule2.entity.Schedule;
+import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.MessageRepository;
 import com.sparta.schedule2.repository.ScheduleRepository;
+import com.sparta.schedule2.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +17,18 @@ import java.util.List;
 public class MessageService {
     private final ScheduleRepository scheduleRepository;
     private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
-    public MessageService(MessageRepository messageRepository, ScheduleRepository scheduleRepository) {
+    public MessageService(MessageRepository messageRepository, ScheduleRepository scheduleRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
     }
 
     public MessageResponseDto createMessage(MessageCreateRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(requestDto.getScheduleId()).orElseThrow(NullPointerException::new);
-        Message message = new Message(requestDto, schedule);
+        User user = userRepository.findById(requestDto.getUserId()).orElseThrow(NullPointerException::new);
+        Message message = new Message(requestDto, schedule, user);
         Message saveMessage = messageRepository.save(message);
         MessageResponseDto responseDto = new MessageResponseDto(saveMessage);
         return responseDto;

@@ -21,22 +21,32 @@ public class Schedule extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="username", nullable=false, length=50)
-    private String username;
     @Column(name="title", nullable=false, length=100)
     private String title;
     @Column(name="content", nullable=false, length=500)
     private String content;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @ManyToOne
+    private User createdBy;
+
+    @OneToMany(mappedBy = "schedule", orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "schedule", orphanRemoval = true)
+    private List<Manage> manageList = new ArrayList<>();
 
 
     public Schedule(ScheduleCreateRequestDto requestDto) {
-        this.username = requestDto.getUsername();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public Schedule(ScheduleCreateRequestDto requestDto, User user) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.createdBy = user;
+    }
+
 
     public Schedule update(ScheduleUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();

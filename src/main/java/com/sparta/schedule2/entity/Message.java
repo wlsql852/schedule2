@@ -17,8 +17,10 @@ public class Message extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="username", nullable=false, length=50)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
     @Column(name="content", nullable=false, length=500)
     private String content;
 
@@ -27,8 +29,8 @@ public class Message extends Timestamped{
     private Schedule schedule;
 
 
-    public Message(MessageCreateRequestDto requestDto, Schedule schedule) {
-        this.username = requestDto.getUsername();
+    public Message(MessageCreateRequestDto requestDto, Schedule schedule, User user) {
+        this.user = user;
         this.content = requestDto.getContent();
         this.schedule = schedule;
     }

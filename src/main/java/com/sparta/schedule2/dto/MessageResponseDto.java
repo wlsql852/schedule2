@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MessageResponseDto {
     private Long id;
-    private String username;
+    private Long userId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -18,7 +18,7 @@ public class MessageResponseDto {
 
     public MessageResponseDto(Message Message) {
         this.id = Message.getId();
-        this.username = Message.getUsername();
+        this.userId = Message.getUser().getId();
         this.content = Message.getContent();
         this.createdAt = Message.getCreatedAt();
         this.modifiedAt = Message.getModifiedAt();

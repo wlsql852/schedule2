@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class MessageCreateRequestDto {
     private Long scheduleId;
-    private String username;
+    private Long userId;
     private String content;
 }

@@ -1,17 +1,13 @@
 package com.sparta.schedule2.controller;
 
 import com.sparta.schedule2.dto.ScheduleCreateRequestDto;
+import com.sparta.schedule2.dto.ScheduleDetailResponseDto;
 import com.sparta.schedule2.dto.ScheduleResponseDto;
 import com.sparta.schedule2.dto.ScheduleUpdateRequestDto;
 import com.sparta.schedule2.service.ScheduleService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/schedule")
@@ -23,12 +19,12 @@ public class ScheduleController {
     }
 
     @PostMapping("/create")
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleCreateRequestDto requestDto) {
+    public ScheduleDetailResponseDto createSchedule(@RequestBody ScheduleCreateRequestDto requestDto) {
         return scheduleService.cteateSchedule(requestDto);
     }
 
     @GetMapping("/{scheduleId}")
-    public ScheduleResponseDto getSchedule(@PathVariable final Long scheduleId) {
+    public ScheduleDetailResponseDto getSchedule(@PathVariable final Long scheduleId) {
         return scheduleService.getSchedule(scheduleId);
     }
 
@@ -40,7 +36,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/{scheduleId}")
-    public ScheduleResponseDto updateSchedule(@PathVariable final Long scheduleId, @RequestBody final ScheduleUpdateRequestDto requestDto) {
+    public ScheduleDetailResponseDto updateSchedule(@PathVariable final Long scheduleId, @RequestBody final ScheduleUpdateRequestDto requestDto) {
         return scheduleService.updateSchedule(scheduleId, requestDto);
     }
 
