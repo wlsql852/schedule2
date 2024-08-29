@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class ScheduleService {
         return new ScheduleDetailResponseDto(saveSchedule,manages);
     }
 
+    @Transactional(readOnly = true)
     public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
         return new ScheduleDetailResponseDto(schedule);
@@ -63,7 +65,6 @@ public class ScheduleService {
         List<Manage> saveManage = manageRepository.saveAll(manageList);
         return new ScheduleDetailResponseDto(saveSchedule, saveManage);
     }
-
 
     public Page<ScheduleResponseDto> getSchedules(int page, int size) {
         Pageable pageable = PageRequest.of(page-1, size);

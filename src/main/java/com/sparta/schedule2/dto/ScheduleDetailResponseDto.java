@@ -12,34 +12,34 @@ import java.util.List;
 @NoArgsConstructor
 public class ScheduleDetailResponseDto {
     private Long id;
-    private UserResponseDto createdBy;
+    private UserSimpleResponseDto createdBy;
     private String title;
     private String content;
-    private List<UserResponseDto> managers;
+    private List<UserSimpleResponseDto> managers;
     private int messageCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     public ScheduleDetailResponseDto(Schedule schedule, List<Manage> managers) {
         this.id = schedule.getId();
-        this.createdBy = new UserResponseDto(schedule.getCreatedBy());
+        this.createdBy = new UserSimpleResponseDto(schedule.getCreatedBy());
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
         this.messageCount = schedule.getMessages().size();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
-        this.managers = managers.stream().map(Manage::getManager).map(UserResponseDto::new).toList();
+        this.managers = managers.stream().map(Manage::getManager).map(UserSimpleResponseDto::new).toList();
     }
 
 
     public ScheduleDetailResponseDto(Schedule schedule) {
         this.id = schedule.getId();
-        this.createdBy = new UserResponseDto(schedule.getCreatedBy());
+        this.createdBy = new UserSimpleResponseDto(schedule.getCreatedBy());
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
         this.messageCount = schedule.getMessages().size();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
-        this.managers = schedule.getManageList().stream().map(manage -> new UserResponseDto(manage.getManager())).toList();
+        this.managers = schedule.getManageList().stream().map(manage -> new UserSimpleResponseDto(manage.getManager())).toList();
     }
 }
