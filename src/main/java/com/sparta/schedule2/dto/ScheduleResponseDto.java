@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+//담당자 정보가 없는 응답정보
+//다건 조회때 사용
 @Getter
 @NoArgsConstructor
 public class ScheduleResponseDto {

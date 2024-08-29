@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+//유저 생성, 수정 , 조회시 응답 정보
 @Getter
 @NoArgsConstructor
 public class UserResponseDto {

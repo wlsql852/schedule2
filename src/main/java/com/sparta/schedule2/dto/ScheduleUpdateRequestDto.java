@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.List;
 
+//일정 수정 정보
 @Getter
 public class ScheduleUpdateRequestDto {
     private String title;

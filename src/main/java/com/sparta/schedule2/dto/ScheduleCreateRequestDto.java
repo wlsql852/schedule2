@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.List;
 
+//일정 생성 정보
 @Getter
 public class ScheduleCreateRequestDto {
     private Long createdBy;

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// 담당자 정보가 들어간 응답정보
+//단건조회, 생성, 수정시 사용
 @Getter
 @NoArgsConstructor
 public class ScheduleDetailResponseDto {
@@ -20,6 +22,7 @@ public class ScheduleDetailResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
+    //일정 생성/단건조회
     public ScheduleDetailResponseDto(Schedule schedule, List<Manage> managers) {
         this.id = schedule.getId();
         this.createdBy = new UserSimpleResponseDto(schedule.getCreatedBy());
@@ -32,6 +35,7 @@ public class ScheduleDetailResponseDto {
     }
 
 
+    //일정 수정
     public ScheduleDetailResponseDto(Schedule schedule) {
         this.id = schedule.getId();
         this.createdBy = new UserSimpleResponseDto(schedule.getCreatedBy());

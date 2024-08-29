@@ -15,6 +15,7 @@ public class Manage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //담당자아이디(지연로딩)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="manager_id")
     private User manager;

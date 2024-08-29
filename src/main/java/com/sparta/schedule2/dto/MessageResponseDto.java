@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+//생성, 응답된 댓글 정보
 @Getter
 @NoArgsConstructor
 public class MessageResponseDto {
