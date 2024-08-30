@@ -6,6 +6,7 @@ import com.sparta.schedule2.dto.ScheduleResponseDto;
 import com.sparta.schedule2.dto.ScheduleUpdateRequestDto;
 import com.sparta.schedule2.service.ScheduleService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/schedule")
 @Slf4j
+@RequiredArgsConstructor
 public class ScheduleController {
     private final ScheduleService scheduleService;
-
-    public ScheduleController(final ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
 
     /**
      * 일정 생성

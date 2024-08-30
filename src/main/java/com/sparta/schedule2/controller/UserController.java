@@ -4,7 +4,7 @@ import com.sparta.schedule2.dto.UserRequestDto;
 import com.sparta.schedule2.dto.UserResponseDto;
 import com.sparta.schedule2.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.validation.Errors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,13 +12,10 @@ import java.util.List;
 //user 관련 페이지
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * 유저 생성\n

@@ -10,6 +10,7 @@ import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.ManageRepository;
 import com.sparta.schedule2.repository.ScheduleRepository;
 import com.sparta.schedule2.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,16 +22,11 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
     private final ManageRepository manageRepository;
-
-    public ScheduleService(ScheduleRepository scheduleRepository, UserRepository userRepository, ManageRepository manageRepository) {
-        this.scheduleRepository = scheduleRepository;
-        this.userRepository = userRepository;
-        this.manageRepository = manageRepository;
-    }
 
     //일정 생성
     @Transactional

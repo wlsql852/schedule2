@@ -5,6 +5,7 @@ import com.sparta.schedule2.dto.MessageResponseDto;
 import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
 import com.sparta.schedule2.service.MessageService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,12 +13,9 @@ import java.util.List;
 //댓글 관련 페이지
 @RestController
 @RequestMapping("/api/message")
+@RequiredArgsConstructor
 public class MessageController {
     private final MessageService messageService;
-
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
-    }
 
     /**
      * 댓글 생성

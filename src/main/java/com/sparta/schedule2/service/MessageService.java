@@ -9,6 +9,7 @@ import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.MessageRepository;
 import com.sparta.schedule2.repository.ScheduleRepository;
 import com.sparta.schedule2.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,16 +17,11 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MessageService {
     private final ScheduleRepository scheduleRepository;
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
-
-    public MessageService(MessageRepository messageRepository, ScheduleRepository scheduleRepository, UserRepository userRepository) {
-        this.messageRepository = messageRepository;
-        this.scheduleRepository = scheduleRepository;
-        this.userRepository = userRepository;
-    }
 
     //댓글 생성
     @Transactional

@@ -4,6 +4,7 @@ import com.sparta.schedule2.dto.UserRequestDto;
 import com.sparta.schedule2.dto.UserResponseDto;
 import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,12 +12,9 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     //유저 생성
     @Transactional
