@@ -5,10 +5,12 @@ import com.sparta.schedule2.dto.UserResponseDto;
 import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
 
@@ -17,6 +19,7 @@ public class UserService {
     }
 
     //유저 생성
+    @Transactional
     public UserResponseDto createUser(UserRequestDto requestDto) {
         //requestDto로 유저 객체 생성
         User user = new User(requestDto);
@@ -43,6 +46,7 @@ public class UserService {
     }
 
     //유저 수정
+    @Transactional
     public UserResponseDto updateUser(Long userId, UserRequestDto requestDto) {
         //아이디로 해당 유저 찾기
         User user = userRepository.findById(userId).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
@@ -55,6 +59,7 @@ public class UserService {
     }
 
     //유저 삭제
+    @Transactional
     public void deleteUser(Long userId) {
         //아이디로 해당 유저 찾기
         User user = userRepository.findById(userId).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));

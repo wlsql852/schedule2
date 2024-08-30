@@ -10,10 +10,12 @@ import com.sparta.schedule2.repository.MessageRepository;
 import com.sparta.schedule2.repository.ScheduleRepository;
 import com.sparta.schedule2.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class MessageService {
     private final ScheduleRepository scheduleRepository;
     private final MessageRepository messageRepository;
@@ -26,6 +28,7 @@ public class MessageService {
     }
 
     //댓글 생성
+    @Transactional
     public MessageResponseDto createMessage(MessageCreateRequestDto requestDto) {
         //requestDto에 있는 scheduleId로 해당 일정 찾기
         Schedule schedule = scheduleRepository.findById(requestDto.getScheduleId()).orElseThrow(()->new NullPointerException("해당 아이디의 일정이 존재하지 않습니다."));
@@ -55,6 +58,7 @@ public class MessageService {
     }
 
     //댓글 수정
+    @Transactional
     public MessageResponseDto updateMessage(Long messageId, MessageUpdateReqeustDto requestDto) {
         //아이디로 해당 댓글 찾기
         Message message = messageRepository.findById(messageId).orElseThrow(()->new NullPointerException("해당 아이디의 댓글이 존재하지 않습니다."));
@@ -67,6 +71,7 @@ public class MessageService {
     }
 
     //댓글 삭제
+    @Transactional
     public void deleteMessage(Long messageId) {
         //아이디로 해당 댓글 찾기
         Message message = messageRepository.findById(messageId).orElseThrow(()->new NullPointerException("해당 아이디의 댓글이 존재하지 않습니다."));
