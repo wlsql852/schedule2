@@ -30,10 +30,10 @@ public class Schedule extends Timestamped{
     @JoinColumn(nullable=false)
     private User createdBy;
 
-    @OneToMany(mappedBy = "schedule", orphanRemoval = true)
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "schedule", orphanRemoval = true)
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Manage> manageList = new ArrayList<>();
 
 

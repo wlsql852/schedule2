@@ -23,13 +23,13 @@ public class User extends Timestamped{
     @Column(name="email", length=100)
     private String email;
 
-    @OneToMany (mappedBy = "createdBy", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany (mappedBy = "createdBy", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Schedule> schedules = new ArrayList<>();
 
-    @OneToMany(mappedBy = "manager", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "manager", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     List<Manage> manages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     List<Message> messages = new ArrayList<>();
 
 
