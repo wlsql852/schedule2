@@ -26,7 +26,8 @@ public class Schedule extends Timestamped{
     @Column(name="content", nullable=false, length=500)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable=false)
     private User createdBy;
 
     @OneToMany(mappedBy = "schedule", orphanRemoval = true)

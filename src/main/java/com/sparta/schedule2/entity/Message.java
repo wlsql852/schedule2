@@ -17,15 +17,15 @@ public class Message extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
 
     @Column(name="content", nullable=false, length=500)
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name="schedule_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="schedule_id", nullable = false)
     private Schedule schedule;
 
 

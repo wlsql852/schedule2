@@ -17,11 +17,11 @@ public class Manage {
 
     //담당자아이디(지연로딩)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="manager_id")
+    @JoinColumn(name="manager_id", nullable = false)
     private User manager;
 
-    @ManyToOne
-    @JoinColumn(name="schedule_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="schedule_id", nullable = false)
     private Schedule schedule;
 
     public Manage(Schedule schedule, User manager) {
