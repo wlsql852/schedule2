@@ -1,7 +1,7 @@
 package com.sparta.schedule2.entity;
 
-import com.sparta.schedule2.dto.MessageCreateRequestDto;
-import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
+import com.sparta.schedule2.dto.message.request.MessageCreateRequestDto;
+import com.sparta.schedule2.dto.message.request.MessageUpdateReqeustDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

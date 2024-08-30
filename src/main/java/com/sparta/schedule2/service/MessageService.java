@@ -1,8 +1,8 @@
 package com.sparta.schedule2.service;
 
-import com.sparta.schedule2.dto.MessageCreateRequestDto;
-import com.sparta.schedule2.dto.MessageResponseDto;
-import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
+import com.sparta.schedule2.dto.message.request.MessageCreateRequestDto;
+import com.sparta.schedule2.dto.message.response.MessageResponseDto;
+import com.sparta.schedule2.dto.message.request.MessageUpdateReqeustDto;
 import com.sparta.schedule2.entity.Message;
 import com.sparta.schedule2.entity.Schedule;
 import com.sparta.schedule2.entity.User;

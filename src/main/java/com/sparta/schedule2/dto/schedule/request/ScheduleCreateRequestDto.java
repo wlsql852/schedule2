@@ -1,4 +1,4 @@
-package com.sparta.schedule2.dto;
+package com.sparta.schedule2.dto.schedule.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,13 +7,15 @@ import lombok.Getter;
 
 import java.util.List;
 
-//일정 수정 정보
+//일정 생성 정보
 @Getter
-public class ScheduleUpdateRequestDto {
+public class ScheduleCreateRequestDto {
+    @NotNull(message = "생성자 아이디가 필수로 입력되어야 합니다")
+    private Long createdBy;
+    @NotNull(message = "담당자 아이디가 필수로 입력되어야 합니다")
+    private List<Long> managers;
     @NotBlank(message = "제목을 필수로 입력되어야 합니다.")
     private String title;
     @NotEmpty(message = "내용을 입력해주세요")
     private String content;
-    @NotNull(message = "담당자 아이디가 필수로 입력되어야 합니다")
-    private List<Long> managers;
 }

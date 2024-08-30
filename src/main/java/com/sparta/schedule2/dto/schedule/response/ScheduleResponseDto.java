@@ -1,5 +1,6 @@
-package com.sparta.schedule2.dto;
+package com.sparta.schedule2.dto.schedule.response;
 
+import com.sparta.schedule2.dto.user.response.UserSimpleResponseDto;
 import com.sparta.schedule2.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

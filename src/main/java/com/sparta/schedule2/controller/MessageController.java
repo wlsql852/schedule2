@@ -1,8 +1,8 @@
 package com.sparta.schedule2.controller;
 
-import com.sparta.schedule2.dto.MessageCreateRequestDto;
-import com.sparta.schedule2.dto.MessageResponseDto;
-import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
+import com.sparta.schedule2.dto.message.request.MessageCreateRequestDto;
+import com.sparta.schedule2.dto.message.response.MessageResponseDto;
+import com.sparta.schedule2.dto.message.request.MessageUpdateReqeustDto;
 import com.sparta.schedule2.service.MessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.sparta.schedule2.dto;
+package com.sparta.schedule2.dto.user.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
