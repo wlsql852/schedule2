@@ -26,7 +26,7 @@ public class ScheduleController {
      * @Param 일정 등록 정보
      * @Return 생성된 일정 정보
      */
-    @PostMapping("/create")
+    @PostMapping("/schedule")
     public ScheduleDetailResponseDto createSchedule(@Valid @RequestBody ScheduleCreateRequestDto requestDto) {
         log.info(requestDto.getTitle());
         return scheduleService.createSchedule(requestDto);

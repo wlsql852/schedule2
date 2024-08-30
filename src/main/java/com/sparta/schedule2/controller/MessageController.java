@@ -23,7 +23,7 @@ public class MessageController {
      * @Param 댓글 등록 정보
      * @Return 생성된 댓글 정보
      */
-    @PostMapping("/create")
+    @PostMapping("/message")
     public MessageResponseDto createMessage(@Valid  @RequestBody MessageCreateRequestDto requestDto) {
         return messageService.createMessage(requestDto);
     }

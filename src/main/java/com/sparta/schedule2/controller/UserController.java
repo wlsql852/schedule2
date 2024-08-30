@@ -23,7 +23,7 @@ public class UserController {
      * @Param 유저 등록 정보 \n
      * @Return 생성된 유저 정보\n
      */
-    @PostMapping("/create")
+    @PostMapping("/user")
     public UserResponseDto createUser(@Valid @RequestBody UserRequestDto requestDto) {
         return userService.createUser(requestDto);
     }
