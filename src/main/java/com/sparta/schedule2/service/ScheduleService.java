@@ -34,13 +34,13 @@ public class ScheduleService {
     //일정 생성
     public ScheduleDetailResponseDto cteateSchedule(ScheduleCreateRequestDto requestDto) {
         //requestDto의 createdBy인 아이디로 유저 찾기
-        User user = userRepository.findById(requestDto.getCreatedBy()).orElseThrow(NullPointerException::new);
+        User user = userRepository.findById(requestDto.getCreatedBy()).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
         //유저정보를 주고 일정 객체 생성
         Schedule schedule = new Schedule(requestDto, user);
         //일정 생성
         Schedule saveSchedule = scheduleRepository.save(schedule);
         //requestDto에 있는 있는 manager의 아이디로 유저객체를 가진 매니저리스트 생성
-        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(NullPointerException::new)).toList();
+        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."))).toList();
         List<Manage> manageList = new ArrayList<>();
         //각 유저 객체를 일정객체와 함깨 manage객체로 만듬
         for(User manager : managers) {
@@ -57,7 +57,7 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         //일정 아이디로 해당 일정 찾기
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new NullPointerException("해당 아이디의 일정이 존재하지 않습니다."));
         //일정 정볼를 responseDto로 넘겨줌
         return new ScheduleDetailResponseDto(schedule);
     }
@@ -65,7 +65,7 @@ public class ScheduleService {
     //일정 수정
     public ScheduleDetailResponseDto updateSchedule(Long scheduleId, ScheduleUpdateRequestDto requestDto) {
         //아이디로 해당 일정 찾기
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(NullPointerException::new);
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new NullPointerException("해당 아이디의 일정이 존재하지 않습니다."));
         //해당 일정안의 정보를 바꾸고
         Schedule saveSchedule = schedule.update(requestDto);
         //수정하기
@@ -74,7 +74,7 @@ public class ScheduleService {
         manageRepository.deleteAll(manageRepository.findAllByScheduleId(schedule.getId()));
         //담당자 리스트를 새로 만들어서
         List<Manage> manageList = new ArrayList<>();
-        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(NullPointerException::new)).toList();
+        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."))).toList();
         for(User manager : managers) {
             Manage manage = new Manage(schedule,manager);
             manageList.add(manage);

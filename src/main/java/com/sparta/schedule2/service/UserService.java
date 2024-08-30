@@ -29,7 +29,7 @@ public class UserService {
     //단건 조회
     public UserResponseDto getUser(Long userId) {
         //해당 아이디로 유저 찾기
-        User user = userRepository.findById(userId).orElseThrow(NullPointerException::new);
+        User user = userRepository.findById(userId).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
         //찾은 유저객체를 responseDto로 날리기
         return new UserResponseDto(user);
     }
@@ -45,7 +45,7 @@ public class UserService {
     //유저 수정
     public UserResponseDto updateUser(Long userId, UserRequestDto requestDto) {
         //아이디로 해당 유저 찾기
-        User user = userRepository.findById(userId).orElseThrow(NullPointerException::new);
+        User user = userRepository.findById(userId).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
         //유저 객체 내용 바꾸기
         User saveUser = user.update(requestDto);
         //유저 데이터 수정
@@ -57,7 +57,7 @@ public class UserService {
     //유저 삭제
     public void deleteUser(Long userId) {
         //아이디로 해당 유저 찾기
-        User user = userRepository.findById(userId).orElseThrow(NullPointerException::new);
+        User user = userRepository.findById(userId).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
         //유저 데이터 삭제
         userRepository.delete(user);
     }
