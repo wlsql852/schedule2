@@ -5,6 +5,8 @@ import com.sparta.schedule2.dto.ScheduleDetailResponseDto;
 import com.sparta.schedule2.dto.ScheduleResponseDto;
 import com.sparta.schedule2.dto.ScheduleUpdateRequestDto;
 import com.sparta.schedule2.service.ScheduleService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 //일정 관련 페이지
 @RestController
 @RequestMapping("/api/schedule")
+@Slf4j
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
@@ -26,8 +29,9 @@ public class ScheduleController {
      * @Return 생성된 일정 정보
      */
     @PostMapping("/create")
-    public ScheduleDetailResponseDto createSchedule(@RequestBody ScheduleCreateRequestDto requestDto) {
-        return scheduleService.cteateSchedule(requestDto);
+    public ScheduleDetailResponseDto createSchedule(@Valid @RequestBody ScheduleCreateRequestDto requestDto) {
+        log.info(requestDto.getTitle());
+        return scheduleService.createSchedule(requestDto);
     }
 
     /**
@@ -61,7 +65,7 @@ public class ScheduleController {
      * @Return 수정된 일정 정보
      */
     @PutMapping("/{scheduleId}")
-    public ScheduleDetailResponseDto updateSchedule(@PathVariable final Long scheduleId, @RequestBody final ScheduleUpdateRequestDto requestDto) {
+    public ScheduleDetailResponseDto updateSchedule(@PathVariable final Long scheduleId, @Valid @RequestBody final ScheduleUpdateRequestDto requestDto) {
         return scheduleService.updateSchedule(scheduleId, requestDto);
     }
 

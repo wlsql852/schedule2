@@ -3,6 +3,8 @@ package com.sparta.schedule2.controller;
 import com.sparta.schedule2.dto.UserRequestDto;
 import com.sparta.schedule2.dto.UserResponseDto;
 import com.sparta.schedule2.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class UserController {
      * @Return 생성된 유저 정보\n
      */
     @PostMapping("/create")
-    public UserResponseDto createUser(@RequestBody UserRequestDto requestDto) {
+    public UserResponseDto createUser(@Valid @RequestBody UserRequestDto requestDto) {
         return userService.createUser(requestDto);
     }
 
@@ -58,7 +60,7 @@ public class UserController {
      * @Return 수정된 유저 정보 \n
      */
     @PutMapping("/{userId}")
-    public UserResponseDto updateUser(@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
+    public UserResponseDto updateUser(@PathVariable Long userId, @Valid @RequestBody UserRequestDto requestDto) {
         return userService.updateUser(userId, requestDto);
     }
 

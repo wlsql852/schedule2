@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
@@ -32,7 +33,8 @@ public class ScheduleService {
     }
 
     //일정 생성
-    public ScheduleDetailResponseDto cteateSchedule(ScheduleCreateRequestDto requestDto) {
+    @Transactional
+    public ScheduleDetailResponseDto createSchedule(ScheduleCreateRequestDto requestDto) {
         //requestDto의 createdBy인 아이디로 유저 찾기
         User user = userRepository.findById(requestDto.getCreatedBy()).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."));
         //유저정보를 주고 일정 객체 생성
@@ -54,7 +56,6 @@ public class ScheduleService {
 
     //일정 단건 조회
     //매니저 유저 정보를 가져올때 fetch가 lazy로 걸려 있으므로 읽기 전용으로 Transactional
-    @Transactional(readOnly = true)
     public ScheduleDetailResponseDto getSchedule(Long scheduleId) {
         //일정 아이디로 해당 일정 찾기
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new NullPointerException("해당 아이디의 일정이 존재하지 않습니다."));
@@ -63,6 +64,7 @@ public class ScheduleService {
     }
 
     //일정 수정
+    @Transactional
     public ScheduleDetailResponseDto updateSchedule(Long scheduleId, ScheduleUpdateRequestDto requestDto) {
         //아이디로 해당 일정 찾기
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new NullPointerException("해당 아이디의 일정이 존재하지 않습니다."));
@@ -96,6 +98,7 @@ public class ScheduleService {
     }
 
     //댓글 삭제
+    @Transactional
     public void deleteSchedule(Long scheduleId) {
         scheduleRepository.deleteById(scheduleId);
     }

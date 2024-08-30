@@ -20,7 +20,7 @@ public class User extends Timestamped{
     private long id;
     @Column(name="username", nullable=false, length=50)
     private String username;
-    @Column(name="email", nullable=false, length=100)
+    @Column(name="email", length=100)
     private String email;
 
     @OneToMany (mappedBy = "createdBy", cascade = CascadeType.PERSIST, orphanRemoval = true)

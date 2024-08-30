@@ -4,6 +4,7 @@ import com.sparta.schedule2.dto.MessageCreateRequestDto;
 import com.sparta.schedule2.dto.MessageResponseDto;
 import com.sparta.schedule2.dto.MessageUpdateReqeustDto;
 import com.sparta.schedule2.service.MessageService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MessageController {
      * @Return 생성된 댓글 정보
      */
     @PostMapping("/create")
-    public MessageResponseDto createMessage(@RequestBody MessageCreateRequestDto requestDto) {
+    public MessageResponseDto createMessage(@Valid  @RequestBody MessageCreateRequestDto requestDto) {
         return messageService.createMessage(requestDto);
     }
 
@@ -58,7 +59,7 @@ public class MessageController {
      * @Return 수정된 댓글 정보
      */
     @PutMapping("/{messageId}")
-    public MessageResponseDto updateMessage(@PathVariable Long messageId, @RequestBody MessageUpdateReqeustDto requestDto) {
+    public MessageResponseDto updateMessage(@PathVariable Long messageId, @Valid @RequestBody MessageUpdateReqeustDto requestDto) {
         return messageService.updateMessage(messageId, requestDto);
     }
 
