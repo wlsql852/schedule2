@@ -1,10 +1,9 @@
 package com.sparta.schedule2.service;
 
 import com.sparta.schedule2.dto.schedule.request.ScheduleCreateRequestDto;
+import com.sparta.schedule2.dto.schedule.request.ScheduleUpdateRequestDto;
 import com.sparta.schedule2.dto.schedule.response.ScheduleDetailResponseDto;
 import com.sparta.schedule2.dto.schedule.response.ScheduleResponseDto;
-import com.sparta.schedule2.dto.schedule.request.ScheduleUpdateRequestDto;
-import com.sparta.schedule2.entity.Manage;
 import com.sparta.schedule2.entity.Schedule;
 import com.sparta.schedule2.entity.User;
 import com.sparta.schedule2.repository.ManageRepository;
@@ -16,9 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,17 +33,7 @@ public class ScheduleService {
         Schedule schedule = new Schedule(requestDto, user);
         //일정 생성
         Schedule saveSchedule = scheduleRepository.save(schedule);
-        //requestDto에 있는 있는 manager의 아이디로 유저객체를 가진 매니저리스트 생성
-        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."))).toList();
-        List<Manage> manageList = new ArrayList<>();
-        //각 유저 객체를 일정객체와 함깨 manage객체로 만듬
-        for(User manager : managers) {
-            Manage manage = new Manage(schedule,manager);
-            manageList.add(manage);
-        }
-        //manage 정보 저장
-        List<Manage> manages = manageRepository.saveAll(manageList);
-        return new ScheduleDetailResponseDto(saveSchedule,manages);
+        return new ScheduleDetailResponseDto(saveSchedule);
     }
 
     //일정 단건 조회
@@ -68,19 +54,7 @@ public class ScheduleService {
         Schedule saveSchedule = schedule.update(requestDto);
         //수정하기
         scheduleRepository.save(saveSchedule);
-        //담당자 리스트는 일단 해당 일정의 데이터를 모두 지우고
-        manageRepository.deleteAll(manageRepository.findAllByScheduleId(schedule.getId()));
-        //담당자 리스트를 새로 만들어서
-        List<Manage> manageList = new ArrayList<>();
-        List<User> managers = requestDto.getManagers().stream().map(u->userRepository.findById(u).orElseThrow(()->new NullPointerException("해당 아이디의 유저가 존재하지 않습니다."))).toList();
-        for(User manager : managers) {
-            Manage manage = new Manage(schedule,manager);
-            manageList.add(manage);
-        }
-        //다시 데이터로 저장함
-        List<Manage> saveManage = manageRepository.saveAll(manageList);
-        //수정된 정보는 response로 넘겨줌
-        return new ScheduleDetailResponseDto(saveSchedule, saveManage);
+        return new ScheduleDetailResponseDto(saveSchedule);
     }
 
     //일정 다건 조회(페이지 인덱스와 사이즈 파라미터)

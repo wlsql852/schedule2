@@ -28,4 +28,8 @@ public class Manage {
         this.schedule = schedule;
         this.manager = manager;
     }
+
+    public void update(User manager) {
+        this.manager = manager;
+    }
 }

@@ -5,15 +5,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
-import java.util.List;
-
 //일정 생성 정보
 @Getter
 public class ScheduleCreateRequestDto {
     @NotNull(message = "생성자 아이디가 필수로 입력되어야 합니다")
     private Long createdBy;
-    @NotNull(message = "담당자 아이디가 필수로 입력되어야 합니다")
-    private List<Long> managers;
     @NotBlank(message = "제목을 필수로 입력되어야 합니다.")
     private String title;
     @NotEmpty(message = "내용을 입력해주세요")
